@@ -1,0 +1,112 @@
+\documentclass[11pt]{report}
+
+\usepackage[frenchb]{babel}
+\usepackage[babel=true]{csquotes} % pour les guillemets (csquotes utilise la langue definie dans babel)
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{a4wide}
+\usepackage{graphicx}
+\usepackage{float} % pour forcer la position des images (H)
+\usepackage{textcomp}
+\usepackage{amsmath} %pour les maths
+\usepackage{fixltx2e} %pour les indices des lettres 
+\usepackage{gensymb}
+\usepackage{caption}
+\usepackage{subcaption}
+%\usepackage{xcolor}
+\usepackage[table]{xcolor}
+\usepackage{array,multirow,makecell}
+\setcellgapes{1pt}
+\usepackage[a4paper]{geometry}%pour les marges
+\geometry{hscale=0.75,vscale=0.85,centering}%pour les marges
+\usepackage[final]{pdfpages} %insertion des pdf
+\usepackage{listings}
+\usepackage{slashbox}% pour les "diagonales" dans cell tableau
+\usepackage{lscape}%pour le mode paysage
+
+
+\setlength{\parskip}{1ex plus .4ex minus .4ex} % espacement paragraphes
+
+\makeatletter
+	\renewcommand{\fnum@figure}{\textsc{Fig.}~\thefigure} %"Fig." à la place de "Figure"
+\makeatother
+
+% configuration text dans tableaux
+\newcolumntype{R}[1]{>{\raggedleft\arraybackslash }b{#1}}
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash }b{#1}}
+\newcolumntype{C}[1]{>{\centering\arraybackslash }b{#1}}
+
+
+% configuration des listings
+%\input{../../../Divers/listing.tex}
+%to insert file code
+\lstset
+{
+	language=C,               		% choose the language of the code
+	numbers=left,                   % where to put the line-numbers
+	stepnumber=1,                   % the step between two line-numbers.        
+	numbersep=5pt,                  % how far the line-numbers are from the code
+	backgroundcolor=\color{white},  % choose the background color. You must add \usepackage{color}
+	showspaces=false,               % show spaces adding particular underscores
+	showstringspaces=false,         % underline spaces within strings
+	showtabs=false,                 % show tabs within strings adding particular underscores
+	tabsize=2,                      % sets default tabsize to 2 spaces
+	captionpos=b,                   % sets the caption-position to bottom
+	breaklines=true,                % sets automatic line breaking
+	breakatwhitespace=true,         % sets if automatic breaks should only happen at whitespace
+	title=heapsort.c,                 % show the filename of files included with \lstinputlisting;
+	%title=\lstname,                 % show the filename of files included with \lstinputlisting;
+	frame=lrb,
+	xleftmargin=\fboxsep,			% pour le cadre
+	xrightmargin=-\fboxsep,			% pour le cadre
+	basicstyle=\ttfamily,
+	keywordstyle=\color{blue}\ttfamily,
+	stringstyle=\color{red}\ttfamily,
+	commentstyle=\color{green}\ttfamily,
+	morecomment=[l][\color{magenta}]{\#}
+}
+
+\begin{document}
+
+\input{titlePage.tex}
+
+\tableofcontents
+
+
+\chapter{Définitions}
+
+	\section{God Class}
+	
+	\section{Critères/Indicateurs de God Class}
+		\subsection{MMC}
+		\subsection{TCC}
+		\subsection{AFTD}
+	
+\chapter{Consignes}
+	
+	\section{Enoncé}
+	
+	\section{Cahier des charges}
+	
+\chapter{Outils utilisés}
+	
+
+\chapter{Implémentation}
+
+	\section{Package mmc}
+		\subsection{Diagramme UML}
+		\subsection{Extrait de code}
+		
+	\section{Package tcc}
+		\subsection{Diagramme UML}
+		\subsection{Extrait de code}
+		
+	\section{Package aftd}
+		\subsection{Diagramme UML}
+		\subsection{Extrait de code}
+		
+	\section{Package gui}
+		\subsection{Diagramme UML}
+		\subsection{Extrait de code}
+		
+\end{document} 
