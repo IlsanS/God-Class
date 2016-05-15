@@ -17,49 +17,46 @@ import java.util.Set;
 /**
  *
  * @author PC
+ * Les methodes sont publique pour que le  visitor puisse y accéder.
+ * Il rempli les map. 
+ * But de cette classe : remplir les la liste class_accedees dont la taille = le metric.
+ * le visitor va rechercher les "=" dont l'un des membre est un  acces par un  . ex String.valueOf.
+ * Comme les acces par . peuvent venir de "super" ou "this", on va comparer les membre à la liste des variables
+ * membres et locales pour être sûr.
+ * 
  */
 
 public class MeusureEncapsulationAFTD 
 {
     protected ATFDVisitor visitor;
-
-    protected Set<String> classe_a_supprimees; //classe internes ou à supprimer
-    protected Set<String> classes_externes;
-    protected Set<String> type_inconnu;
+ 
+    protected Set<String> classe_accedees;
     protected Map<String, Type> variable_membres;
     protected Map<String, Type> localVariables;
-    private double metric;
 
     public MeusureEncapsulationAFTD()
     {
-        
         this.visitor = new ATFDVisitor();
-        this.classe_a_supprimees = new HashSet<>();
-        this.classes_externes = new HashSet<>();
-        this.type_inconnu = new HashSet<>();
+        this.classe_accedees = new HashSet<>();
         this.variable_membres = new HashMap<>();
         this.localVariables = new HashMap<>();
     }
-
   
     
-    public void meusurer(CompilationUnit cu)
+    public double meusurer(CompilationUnit cu)
     {
-        this.visitor.visit(cu, this);
-
-    
-        System.out.println("[ATFD] Retrait des classes suivantes : " + this.classe_a_supprimees);
-        this.classes_externes.removeAll(this.classe_a_supprimees);
-
-        // Calcule le métrique
-        this.metric = (double)this.classes_externes.size();
+        try
+        {
+             this.visitor.visit(cu, this);
+        
+        }
+        catch(NullPointerException ex){ex.printStackTrace();}
+       return  (double)this.classe_accedees.size();
     }
 
      public void reinitialiser()
     {
-        this.classe_a_supprimees.clear();
-        this.classes_externes.clear();
-        this.type_inconnu.clear();
+        this.classe_accedees.clear();
         this.variable_membres.clear();
         this.localVariables.clear();
     }
@@ -84,48 +81,26 @@ public class MeusureEncapsulationAFTD
         return null;
     }
     
-    
- /****************************************************************************************************
-                            CLASSES INTERNES OU SOI MEME
-/****************************************************************************************************/ 
-    public void addClasseASupprimer(final String classeName)
-    {
-        this.classe_a_supprimees.add(classeName);
-    }
-
-    public Set<String> getClassesToRemove()
-    {
-        return this.classe_a_supprimees;
-    }
-
-        
+ 
   /****************************************************************************************************
                             CLASSES EXTERNE = METRIC
 /****************************************************************************************************/ 
-    public boolean addClasseExternes(final String className)
+    public boolean addClasseAccedees(final String className)
     {
-        return this.classes_externes.add(className);
+       if(recherche_type(className)!=null)
+            return this.classe_accedees.add(className);
+       else
+            System.out.println("Acces à super");
+       return false;
     }
 
-    public Set<String> getExternalClasses()
+    public Set<String> getClasseAccedees()
     {
-        return this.classes_externes;
+        return this.classe_accedees;
     }
 
 
-    public boolean addVariableParAccesseur(final String variableName)
-    {
-        //récupere le type de la variable //recherche parmis les var local et les var globales
-        Type classType = this.recherche_type(variableName);
-
-        // Si le type est trouvé, on la met dans classe externe
-        if (classType != null)
-            return this.addClasseExternes(classType.toString());
-
-  
-        return false;
-    }
-/****************************************************************************************************
+   /****************************************************************************************************
                             VARIABLE MEMBRE
 /****************************************************************************************************/
     public void addMemberVariable(final String variable, final Type type)
@@ -142,27 +117,24 @@ public class MeusureEncapsulationAFTD
  /****************************************************************************************************
                             VARIABLE LOCALEs
 /****************************************************************************************************/
-    public void addLocalVariable(final String variable, final Type type)
+    public void ajoutVariableLocales(final String variable, final Type type)
     {
         this.localVariables.put(variable, type);
     }
 
-    public void addLocalVariables(final List<Parameter> variables)
+    public void ajoutVariablesLocales(final List<Parameter> variables)
     {
         for(Parameter variable : variables)
-            this.addLocalVariable(variable.getId().getName(), variable.getType());
+            this.ajoutVariableLocales(variable.getId().getName(), variable.getType());
     }
 
-    public void addLocalVariables(final List<VariableDeclarator> variables, final Type type)
+    public void ajoutVariablesLocales(final List<VariableDeclarator> variables, final Type type)
     {
         for(VariableDeclarator variable : variables)
-            this.addLocalVariable(variable.getId().toString(), type);
+            this.ajoutVariableLocales(variable.getId().toString(), type);
     }
 
-    public void clearLocalVariables()
-    {
-        this.localVariables.clear();
-    }
+   
 
   
   

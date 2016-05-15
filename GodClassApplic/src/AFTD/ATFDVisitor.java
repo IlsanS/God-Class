@@ -6,107 +6,103 @@
 package AFTD;
 
 
-import japa.parser.ast.body.ClassOrInterfaceDeclaration;
 import japa.parser.ast.body.FieldDeclaration;
 import japa.parser.ast.body.MethodDeclaration;
 import japa.parser.ast.body.VariableDeclarator;
-import japa.parser.ast.expr.Expression;
+import japa.parser.ast.expr.AssignExpr;
 import japa.parser.ast.expr.FieldAccessExpr;
-import japa.parser.ast.expr.MethodCallExpr;
 import japa.parser.ast.expr.VariableDeclarationExpr;
 import japa.parser.ast.visitor.VoidVisitorAdapter;
 import java.util.List;
 
 public class ATFDVisitor extends VoidVisitorAdapter<MeusureEncapsulationAFTD>
 {
-
-    public void visit(ClassOrInterfaceDeclaration classOrInterfaceDeclaration,
-                      MeusureEncapsulationAFTD calculator)
-    {
-        // If it's a class
-        if (!classOrInterfaceDeclaration.isInterface())
-        {
-            System.out.println("[ATFD] Nouvelle déclaration de classe = " +
-                classOrInterfaceDeclaration.getName());
-
-            calculator.addClasseASupprimer(classOrInterfaceDeclaration.getName());
-        }
-
-        super.visit(classOrInterfaceDeclaration, calculator);
-    }
-
-  /****************************************************************************************************
+/****************************************************************************************************
                          DECLARATION DES VARIABLE MEMBRE
 /****************************************************************************************************/ 
-    public void visit(FieldDeclaration fieldDeclaration, MeusureEncapsulationAFTD calculator)
+    
+    
+    public void visit(FieldDeclaration fieldDeclaration, MeusureEncapsulationAFTD m)
     {
         List<VariableDeclarator> variables = fieldDeclaration.getVariables();
 
         for(VariableDeclarator var : variables)
-            System.out.println("[ATFD] Nouvelle variable membre = " +
+            System.out.println("var membre : " +
                 fieldDeclaration.getType().toString() + " " + var.getId().getName());
 
-        calculator.addMemberVariables(variables, fieldDeclaration.getType());
+        m.addMemberVariables(variables, fieldDeclaration.getType());
 
-        super.visit(fieldDeclaration, calculator);
+        super.visit(fieldDeclaration, m);
     }
   
+    
+    
+    
+    
+    
  
  /****************************************************************************************************
                        DECLARATIONS DE VARIABLES LOCALES
 /****************************************************************************************************/ 
     @Override
-    public void visit(VariableDeclarationExpr variableDeclarationExpr, MeusureEncapsulationAFTD calculator)
+    public void visit(VariableDeclarationExpr variableDeclarationExpr, MeusureEncapsulationAFTD m)
     {
-        System.out.println("[ATFD] Nouvelle(s) variable(s) locale(s) = " + variableDeclarationExpr.toString());
+        System.out.println("var locale : " + variableDeclarationExpr.toString());
 
-        calculator.addLocalVariables(variableDeclarationExpr.getVars(),
+        m.ajoutVariablesLocales(variableDeclarationExpr.getVars(),
                                      variableDeclarationExpr.getType());
 
-        super.visit(variableDeclarationExpr, calculator);
+        super.visit(variableDeclarationExpr, m);
     }
+    
+    
+    
+    
+    
 /****************************************************************************************************
                          DECLARATION DES METHODES : recuperation des paramètres
 /****************************************************************************************************/ 
 
-    public void visit(MethodDeclaration methodDeclaration, MeusureEncapsulationAFTD calculator)
+    public void visit(MethodDeclaration methodDeclaration, MeusureEncapsulationAFTD m)
     {
-        System.out.println("[ATFD] Nouvelle méthode = " + methodDeclaration.getName());
-
+        System.out.println("methode : " + methodDeclaration.getName());
+        try {
+            
+   
         if (!methodDeclaration.getParameters().isEmpty())
         {
-            System.out.println("[ATFD] Sauvegarde des parametres");
-            calculator.addLocalVariables(methodDeclaration.getParameters());
+        
+            m.ajoutVariablesLocales(methodDeclaration.getParameters());
         }
-
-        super.visit(methodDeclaration, calculator);
-
-        // Clear variables local to the method
-        calculator.clearLocalVariables();
+        } catch (NullPointerException e) {
+            
+        }
+        super.visit(methodDeclaration, m);
     }
-
-
-
- /****************************************************************************************************
-                       APPELS DES METHODES
+    
+    
+    
+    
+/****************************************************************************************************
+                         DECLARATION DES METHODES : recuperation des paramètres
 /****************************************************************************************************/ 
+   
     @Override
-    public void visit(MethodCallExpr methodCallExpr, MeusureEncapsulationAFTD calculator)
+    public void visit(AssignExpr n,  MeusureEncapsulationAFTD calculator)
     {
-        Expression scope = methodCallExpr.getScope();
+       System.out.println("égalité : "+ n.getTarget() +", "+ n.getValue());
+            if (  n.getTarget()instanceof FieldAccessExpr )
+                
+            {   System.out.println("acces var par (.) ");
 
-        // scope is null or egals to "this" if it's a member method call
-        if (scope != null && !scope.toString().startsWith("this"))
-        {
-            String methodName = methodCallExpr.getName().toUpperCase();
-
-            if (methodName.startsWith("GET") || methodName.startsWith("SET"))
-            {
-                System.out.println("[ATFD] Nouvel appel d'un accesseur = " + methodCallExpr.toString());
-                calculator.addVariableParAccesseur(scope.toString());
+                calculator.addClasseAccedees(((FieldAccessExpr)  n.getTarget()).getScope().toString());
             }
-        }
+            if ( n.getValue()instanceof FieldAccessExpr)
+                
+            {   System.out.println("acces var par (.)  ");         
 
-        super.visit(methodCallExpr, calculator);
+                calculator.addClasseAccedees(((FieldAccessExpr)  n.getValue()).getScope().toString());
+            }
+         super.visit(n, calculator);
     }
 }
