@@ -3,34 +3,27 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package AFTD;
+package wmc;
 
-import japa.parser.ast.CompilationUnit;
 import japa.parser.JavaParser;
 import japa.parser.ParseException;
+import japa.parser.ast.CompilationUnit;
 import java.io.File;
 import java.io.IOException;
 
 /**
  *
- * @author PC
+ * @author Kaoutare
  */
-public class NewMain {
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) throws ParseException, IOException {
-    
-        
-//        CompilationUnit cu=JavaParser.parse(new File("C:\\Users\\PC\\Documents\\GitHub\\God-Class\\GodClassApplic\\Test.java"));
+public class WMCMain 
+{
+    public static void main(String[] args) throws ParseException, IOException 
+    {
         CompilationUnit cu = JavaParser.parse(new File("C:\\Users\\Kaoutare\\Documents\\GitHub\\God-Class\\Ressources\\Dossier final\\Madani-sby\\GenieLogiciel-LaboFinal-master\\src\\main\\java\\Test.java"));
-           
-        MeusureEncapsulationAFTD m= new MeusureEncapsulationAFTD();
-        double b = m.meusurer(cu);
+        WMCCalculateur calculateur = new WMCCalculateur();
+        calculateur.calcule(cu);
                    
-        System.out.println("metric :"+ b);
+        System.out.println("metrique :"+ calculateur.getMetrique());
         
     }
-    
 }
