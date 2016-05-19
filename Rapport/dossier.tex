@@ -83,13 +83,14 @@
 	Nous avons décidés d'utiliser principalement trois indicateurs: le WMC, le TCC et l'AFTD qui seront explicités d'avantage ci-dessous.   
 		
 		\subsection{WMC}
-		Le \textit{Weighted Method Count} (WMC) est un métrique qui permet de mesurer la complexité d'une classe. Pour ce faire, il se base sur le nombre de méthodes d'une classe ou sur la somme des complexités statiques de toutes les méthodes d'une classe. Pour ce cas, la complexité cyclomatique de MCCabe peut être utilisée pour mesurer la complexité.  
+		Le \textit{Weighted Method Count} (WMC) est un métrique qui permet de mesurer la complexité d'une classe. Pour ce faire, ce critère peut se baser notamment sur le nombre de méthodes d'une classe ou  la complexité cyclomatique de MCCabe peut être utilisée. Pour cet indicateur, une valeur faible est préconiséee. Mais qu'entend-on par \textit{faible} ? Dans la littérature, certains auteurs considèrent comme faible une valeur entre 20 et 50 d'autres s'accordent sur une valeur de 10. Mais quoiqu'il en soit, une valeur supérieure à 50 est à éviter. En effet, la maintenance d'une classe ayant plus de 50 méthodes est très difficile ainsi que sa lisibilité et son refactoring.   
 		
 		\subsection{TCC}
-		Le \textit{Tight Class Cohesion} (TCC) est un métrique qui permet de mesurer la cohésion d'un classe. Il se situe généralement entre 0 et 1. Cet indicateur se base sur l'analyse des accès des méthodes d'une classe aux variables membres.  
+		Le \textit{Tight Class Cohesion} (TCC) est un métrique qui permet de mesurer la cohésion d'une classe. Cet indicateur s'appuie sur l'analyse des relation entre méthodes. Il se situe généralement entre 0 et 1. La détection d'une classe avec peu de cohésion permettra, par exemple, de déterminer si une classe à besoin ou non d'être restructurée en deux autres classes.  Pour cet indicateur, une haute valeur est préférable.  
 		
 		\subsection{AFTD}
-		L'\textit{Acdes tio Foreign Data} (AFTD) est un indiacteur qui permet d'analyser les accès à des méthodes extérieures par voies indirectes ou directes. 
+		L'\textit{Acces to Foreign Data} (AFTD) est un indiacteur qui permet d'analyser les accès à des méthodes extérieures par voies indirectes ou directes. Il s'agit d'un indicateur qui renseigne sur le degré d'encapsulation d'une classe. 
+		
 	
 \chapter{Consignes}
 	
@@ -158,23 +159,54 @@
 	}
 
 
-\chapter{Outils utilisés}
+	\section{Outils utilisés}
 	Pour l'élaboration de ce travail, nous avons , d'une part, utilisé un serveur d'intégration continue Jenkins mais également les librairies JUnit et Mockito. 
 
 \chapter{Méthodologie de travail}
-Avant de débuter le projet et la partie implémentation, une phase de recherche a débuté. Pour optimiser notre temps de travail, nous nous sommes répartis les recherches. Ces dernières concernaient essentiellement les outils (Jenkins, JUnit, Mockito)  et les concepts théoriques (indicateurs, doublures ... que nous avons été amenés à utiliser. Chaque membre du groupe a ainsi acquis le rôle de référant dans son domaine de recherche.\\ 
+Avant de débuter le projet et la partie implémentation, une phase de recherche a débuté. Pour optimiser notre temps de travail, nous nous sommes répartis les recherches. Ces dernières concernaient essentiellement les outils (Jenkins, JUnit, Mockito)  et les concepts théoriques (indicateurs, doublures ...) que nous avons été amenés à utiliser. Chaque membre du groupe a ainsi acquis le rôle de référant dans son domaine de recherche.\\ 
 
 Une fois la phase de recherche terminée, la phase de mise en commun a alors pu débuter. Il était impérativement nécessaire que chaque membre du groupe est les mêmes connaissances concernant tous les concepts théoriques. De plus, cette phase a permis à chacun de donner son point de vue sur la manière à suivre.\\ 
 
-Enfin, une fois cette phase de mise en commun passée, la phase d'implémentation à proprement dit a débutée. Chaque membre du groupe a implémenté un indicateur et les tests correspondants. L'implémentation s'est faite en parrallè. L'intégration de toutes les unités de travail au sein d'un seul et même projet s'est faite de manière assez aisée étant donné que la marche à suivre  \\ 
-
+Enfin, une fois cette phase de mise en commun passée, la phase d'implémentation à proprement dit a débutée. Chaque membre du groupe a implémenté un indicateur et les tests correspondants. L'implémentation s'est faite en parrallè. L'intégration de toutes les unités de travail au sein d'un seul et même projet s'est faite de manière assez aisée étant donné que la marche à suivre a été décidée au départ. \\ 
 
 \chapter{Implémentation}
 
-	Le projet se pésente sous la forme de quatre packages; un package pour chaque indicateur et un pour le gui. Concernant la répartition 
+	Le projet se pésente sous la forme de quatre packages; un package pour chaque indicateur et un package pour le gui. Les trois packages concernant les indicateurs ont pu être implémentés de manière indépendante étant donné que l'objet passé en paramètre est une \textit{japa.parser.ast.CompilationUnit}. cette manière de procéder permet de ne parser qu'une seule fois le code de la classe. En effet, le résultat du parsing est une \textit{japa.parser.ast.CompilationUnit}. Tous les caluls de métriques s'effectuent à partir de cet objet. Cette indépendance au niveau du code des package a permis à chacun d'effectuer ses tests unitaires de manière isolée.
 	
 	\section{Package wmc}
-		\subsection{Diagramme UML}
+		Les tests de ce package consistent 
 		\subsection{Extrait de code}
 		
 	\section{Package tcc}
+		\subsection{Extrait de code}
+		
+	\section{Package aftd}
+		\subsection{Extrait de code}
+		
+	\section{Package gui}
+		\subsection{Fenêtre}
+		
+	\section{Diagrammes UML}
+		
+		\begin{figure}[h]
+			\centering
+			\boxed{\includegraphics[scale=1, angle=90]{images/uml1.PNG}}
+			\caption{Diagramme UML du package wmc}
+			\label{uml1}
+		\end{figure}
+		
+		\begin{figure}[h]
+			\centering
+			\boxed{\includegraphics[scale=0.7, angle=90]{images/uml2.PNG}}
+			\caption{Diagramme UML des packages aftd et tcc}
+			\label{uml2}
+		\end{figure}
+		
+
+\chapter{Conclusion}
+
+\chapter{Annexes}
+		\includepdf{images/cahier.pdf}
+		\includepdf[pages=1-5]{images/doc.pdf}
+		
+\end{document} 
