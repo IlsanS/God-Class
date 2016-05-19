@@ -47,8 +47,6 @@ public class WMCAnalyseurIT {
         
         //Injection du mock 
         this._analyseur.setPersistance(_persistanceMock);
-        
-        
     }
     
     @Test

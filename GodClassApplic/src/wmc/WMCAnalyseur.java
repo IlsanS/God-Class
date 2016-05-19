@@ -22,19 +22,15 @@ public class WMCAnalyseur
     
     public String analyseurWMC(int metrique)
     {
-        if (metrique >= 0 && metrique <= 10)
-        {
+        if (metrique >= 0 && metrique <= 10){
             return "Classe à complexité cyclomatique faible [+]";
         }
-        else if (metrique >= 11 && metrique <= 30)
-        {
+        else if (metrique >= 11 && metrique <= 30){
             return "Classe à complexité cyclomatique moyenne [+/-]";
         }
-        else
-        {
+        else{
             return "Classe à complexité cyclomatique élevée [-]";
-        }
-             
+        }     
     }
     
     public boolean getResult(int metrique)

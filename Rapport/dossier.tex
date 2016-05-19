@@ -160,7 +160,7 @@
 
 
 	\section{Outils utilisés}
-	Pour l'élaboration de ce travail, nous avons , d'une part, utilisé un serveur d'intégration continue Jenkins mais également les librairies JUnit et Mockito. 
+	Pour l'élaboration de ce travail, nous avons , d'une part, utilisé un serveur d'intégration continue Jenkins mais également les librairies JUnit et Mockito. Pour les exemples d'utilisation de ces outils Cfr. le chapitre \ref{impl} 
 
 \chapter{Méthodologie de travail}
 Avant de débuter le projet et la partie implémentation, une phase de recherche a débuté. Pour optimiser notre temps de travail, nous nous sommes répartis les recherches. Ces dernières concernaient essentiellement les outils (Jenkins, JUnit, Mockito)  et les concepts théoriques (indicateurs, doublures ...) que nous avons été amenés à utiliser. Chaque membre du groupe a ainsi acquis le rôle de référant dans son domaine de recherche.\\ 
@@ -169,24 +169,64 @@ Une fois la phase de recherche terminée, la phase de mise en commun a alors pu 
 
 Enfin, une fois cette phase de mise en commun passée, la phase d'implémentation à proprement dit a débutée. Chaque membre du groupe a implémenté un indicateur et les tests correspondants. L'implémentation s'est faite en parrallè. L'intégration de toutes les unités de travail au sein d'un seul et même projet s'est faite de manière assez aisée étant donné que la marche à suivre a été décidée au départ. \\ 
 
-\chapter{Implémentation}
+\chapter{Implémentation}\label{impl}
 
 	Le projet se pésente sous la forme de quatre packages; un package pour chaque indicateur et un package pour le gui. Les trois packages concernant les indicateurs ont pu être implémentés de manière indépendante étant donné que l'objet passé en paramètre est une \textit{japa.parser.ast.CompilationUnit}. cette manière de procéder permet de ne parser qu'une seule fois le code de la classe. En effet, le résultat du parsing est une \textit{japa.parser.ast.CompilationUnit}. Tous les caluls de métriques s'effectuent à partir de cet objet. Cette indépendance au niveau du code des package a permis à chacun d'effectuer ses tests unitaires de manière isolée.
 	
 	\section{Package wmc}
-		Les tests de ce package consistent 
-		\subsection{Extrait de code}
+		Les méthodes qui sont testées sont les méthodes de la classe \textit{WMCAnalyseur} et de la classe \textit{WMCCalculateur}. Pour les premières méthodes testées, il s'agit d'une analyse par valeurs limites. Pour les intervalles dont il est question dans la figure \ref{int}, trois valeurs sont testées; les valeurs aux extrêmités et une valeur au centre de l'intervalle. Ce qui donne en tout 9 tests; trois par chaque intervalle. En outre, trois autres tests sont effectués à l'aide mocks. Le test de la figure \ref{mock} permet de tester que la méthode \textit{getResult} appelle bien la méthode \textit{getMetrique}. Ce qui l'utilité première d'un mock (vérification des appels entre méthodes). La figure \ref{init_mock} montre également l'initialisation avec un mock aus sein de la classe de test. 
 		
-	\section{Package tcc}
-		\subsection{Extrait de code}
+		\subsection{Extraits de code}
 		
+		\begin{figure}[h]
+			\centering
+			\boxed{\includegraphics[scale=1]{images/int.PNG}}
+			\caption{Intervalles de classification pour le WMC}
+			\label{int}
+		\end{figure}
+		
+		\begin{figure}[h]
+			\centering
+			\boxed{\includegraphics[scale=1]{images/init_mock.PNG}}
+			\caption{Initialisation d'un mock}
+			\label{mock}
+		\end{figure}
+		
+		\begin{figure}[h]
+			\centering
+			\boxed{\includegraphics[scale=1]{images/mock.PNG}}
+			\caption{Exemple d'utilisation d'un mock}
+			\label{mock}
+		\end{figure}
+		
+	\newpage
 	\section{Package aftd}
+		Concernant ce package les tests effectués vont par paires. En effet, pour chaque méthode de la classe \textit{MeusureEncapsulationAFTD} testée il y a à chaque fois un test qui donne une valeur correcte et un autre qui donne une erreur.
+		
+		\newpage 
 		\subsection{Extrait de code}
-		
+		\begin{figure}[h]
+			\centering
+			\boxed{\includegraphics[scale=0.9]{images/aftd.PNG}}
+			\caption{Paire de test de la méthode \textit{meusurer()}}
+			\label{aftd}
+		\end{figure}
+			
+	%\section{Package tcc}
+		%\subsection{Extrait de code}
+			
+	\newpage	
 	\section{Package gui}
-		\subsection{Fenêtre}
+		Une God Class est détectée si les trois indicateurs indiquent su-imultanément qu'il s'agit d'une God Class. Le résultat est affiché au niveau du gui. Un exemple d'application du gui est donné à la figure \ref{gui}.
+		\begin{figure}[h]
+			\centering
+			\boxed{\includegraphics[scale=0.9]{images/gui.PNG}}
+			\caption{Exemple d'application}
+			\label{gui}
+		\end{figure}
+	
 		
-	\section{Diagrammes UML}
+	\section{Diagrammes UML}\label{uml}
 		
 		\begin{figure}[h]
 			\centering
@@ -204,6 +244,7 @@ Enfin, une fois cette phase de mise en commun passée, la phase d'implémentatio
 		
 
 \chapter{Conclusion}
+	Avec l'expérience de programmation que nous avons acquis jusqu'à présent, nous avons toujours eu l'habitude d'écrire le code avant d'écrire des tests pour tester notre code. La plupart du temps, nous n'avions pas recours à des librairies comme JUnit qui génèrent la structure des tests à effectuer. Nous effections les tests au sein d'un main. Cependant, pour l'élaboration de ce travail, il nous a été demandé de fonctionner en TDD (\textit{Test Driven Development}). Si, en soit, la théorie à sujet paraissait claire l'adaptée en pratique a été assez difficile dans un premier temps. En effet, cela allait à l'encontre de notre façon de programmer habituelle. Néanmoins, après moult recherches sur le sujet, nous avons enfin résussi à appréhender cette nouvelle façon de programmer. En fait, le TDD consistait à partir d'une méthode vide et à la compléter en fonction des résultats attendus et implémentés au niveaux des tests. Plus le nombre de tests augmentait plus la méthode était étoffée. Cette manière de procéder évite grandement les erreurs de programmation, puisqu'on focntionne étape par étape et qu'en cas d'erreur nous savons localiser aisément l'erreur. C'est là un des avantages du TDD.     
 
 \chapter{Annexes}
 		\includepdf{images/cahier.pdf}

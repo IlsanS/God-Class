@@ -3,20 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package AFTD;
+package aftd;
 
-import aftd.MeusureEncapsulationAFTD;
 import japa.parser.JavaParser;
 import japa.parser.ParseException;
 import japa.parser.ast.CompilationUnit;
-import japa.parser.ast.body.Parameter;
-import japa.parser.ast.body.VariableDeclarator;
 import japa.parser.ast.type.Type;
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
-import java.util.Set;
-import org.dummycreator.DummyCreator;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -65,7 +59,6 @@ public class MeusureEncapsulationAFTDIT {
         double expResult = 0.0;
         double result = instance.meusurer(cu);
         assertEquals(expResult, result, 0.0);
-        
     }
 
     /**
@@ -74,13 +67,13 @@ public class MeusureEncapsulationAFTDIT {
       @Test
     public void testMeusurer_2() throws ParseException, IOException {
         System.out.println("meusurer_retour 3");
-        CompilationUnit cu  = JavaParser.parse(new File("C:\\Users\\PC\\Documents\\GitHub\\God-Class\\GodClassApplic\\test_AFTD.java"));
+        CompilationUnit cu  = JavaParser.parse(new File("C:\\Users\\PC\\Documents"
+                + "\\GitHub\\God-Class\\GodClassApplic\\test_AFTD.java"));
       
         MeusureEncapsulationAFTD instance = new MeusureEncapsulationAFTD();
         double expResult = 2;
         double result = instance.meusurer(cu);
         assertEquals(expResult, result, 0.0);
-        
     }
     
     

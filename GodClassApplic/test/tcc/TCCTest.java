@@ -1,4 +1,4 @@
-package TCC;
+package tcc;
 
 import tcc.TCCCalculateur;
 import japa.parser.ast.expr.NameExpr;
