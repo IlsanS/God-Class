@@ -25,6 +25,7 @@
 \usepackage{lscape}%pour le mode paysage
 
 
+
 \setlength{\parskip}{1ex plus .4ex minus .4ex} % espacement paragraphes
 
 \makeatletter
@@ -76,24 +77,103 @@
 \chapter{Définitions}
 
 	\section{God Class}
+	Avant de débuter ce travail, il parait nécessaire de définir ce qu'on entend par \textit{God Class}. Les \textit{God Class} sont des classes qui ont trop de responsabilités ce qui va à l'encontre de la programmation orientée objet. Les \textit{God Class} sont caractérisées par un nombre important de méthodes, d'appels à des méthodes extérieures ou d'accès à des variables membres. Afin de mettre en évidence ce type de classes, différents indicateurs peuvent être utilisés. 
 	
-	\section{Critères/Indicateurs de God Class}
-		\subsection{MMC}
+	\section{Indicateurs de God Class}
+	Nous avons décidés d'utiliser principalement trois indicateurs: le WMC, le TCC et l'AFTD qui seront explicités d'avantage ci-dessous.   
+		
+		\subsection{WMC}
+		Le \textit{Weighted Method Count} (WMC) est un métrique qui permet de mesurer la complexité d'une classe. Pour ce faire, il se base sur le nombre de méthodes d'une classe ou sur la somme des complexités statiques de toutes les méthodes d'une classe. Pour ce cas, la complexité cyclomatique de MCCabe peut être utilisée pour mesurer la complexité.  
+		
 		\subsection{TCC}
+		Le \textit{Tight Class Cohesion} (TCC) est un métrique qui permet de mesurer la cohésion d'un classe. Il se situe généralement entre 0 et 1. Cet indicateur se base sur l'analyse des accès des méthodes d'une classe aux variables membres.  
+		
 		\subsection{AFTD}
+		L'\textit{Acdes tio Foreign Data} (AFTD) est un indiacteur qui permet d'analyser les accès à des méthodes extérieures par voies indirectes ou directes. 
 	
 \chapter{Consignes}
 	
 	\section{Enoncé}
+	\fcolorbox{lightgray}{teal}
+	{
+		\begin{minipage}{1\textwidth}
+			\textit
+			{
+				\subsubsection{Consignes générales}
+				\begin{itemize}
+					\item Travail a effectué par groupe de 3. Chaque groupe choisit un thème. Pour chaque thème, les
+					explications complémentaires nécessaires pour la réalisation du travail vous seront fournies.
+					\item Utilisation d’un serveur d’intégration
+					\item Utilisation d’au moins une technique de tests en boîte noire et une technique de tests en
+					boîte blanche (vue au cours ou autre)
+					\item Remise d’un rapport explicitant les objectifs fixés pour les tests, la ou les méthodologie(s)
+					utilisée(s) ainsi que les résultats obtenus.
+					\item Prises d’initiatives requises pour la réalisation du projet en respectant toutefois les quelques
+					contraintes imposées !
+					\\
+				\end{itemize}
+			}
+		\end{minipage}
+	}
 	
-	\section{Cahier des charges}
-	
+	\fcolorbox{lightgray}{teal}
+	{
+		\begin{minipage}{1\textwidth}
+			\textit
+			{
+				\subsubsection{Thème 2 : Création d’un outil d’analyse de code}
+				Ecrire une application permettant de détecter des classes qualifiées de "God class". Une telle classe a
+				trop de responsabilités et accède généralement directement aux données d’autres classes. La
+				réutilisabilité et la facilité de compréhension de cette classe n’est dès lors pas facile. Une bonne
+				pratique de programmation orientée objet veut que l’on attribue au plus une seule responsabilité à
+				une classe. Les métriques utilisés pour détecter une "God class" sont (cf. ouvrage Object-oriented
+				Metrics in Practice de Stéphane Ducasse et Michèle Lanza)\\
+				\begin{itemize}
+					\item Mesure de la complexité de la classe : Weighted Method Count (WMC)
+					http://www.aivosto.com/project/help/pm-oo-ck.html
+					\begin{enumerate}
+						\item Le nombre de méthodes dans une classe ou
+						\item La somme des complexités statiques de toutes les méthodes d’une classe. Dans ce
+						dernier cas, la complexité cyclomatique de McCabe peut être utilisée comme mesure
+						de la complexité.
+					\end{enumerate}
+					\item Mesure de la cohésion d’une classe : Tight Class Cohesion (TCC) : TCC)
+					http://www.aivosto.com/project/help/pm-oo-cohesion.html
+					Le métrique sert à évaluer la cohésion d’une classe. Sa valeur est située en 0 et 1. Il
+					correspond au nombre relatif de pairs de méthodes d’une classe qui accède au moins
+					à un même attribut de cette classe. En dessous de 1/3, on considérera que la classe a
+					peu de cohésion. Votre solution doit permettre l’utilisation d’un autre métrique de
+					cohésion.
+					\item Indicateur du respect de l’encapsulation des autres classes : Access to Foreign Data (ATFD) :
+					représente le nombre de classes extérieures auxquelles la classe accède les attributs (de
+					manière directe ou par les accesseurs). Pas plus que quelques-uns (à définir) comme limite.\\
+				\end{itemize}
+				Les classes que l’on cherche à détecter dans un projet pour lequel on se propose d’étudier le
+				code sont donc celles qui sont trop complexes, avec peu de cohésion et qui accèdent
+				directement aux variables membres des autres classes. Remarque : cela ne signifie pas que la
+				classe détectée est mal conçue mais simplement qu’il y a là un indicateur qui nous invite à
+				pousser la réflexion quant à la conception du code.
+			}
+		\end{minipage}
+	}
+
+
 \chapter{Outils utilisés}
-	
+	Pour l'élaboration de ce travail, nous avons , d'une part, utilisé un serveur d'intégration continue Jenkins mais également les librairies JUnit et Mockito. 
+
+\chapter{Méthodologie de travail}
+Avant de débuter le projet et la partie implémentation, une phase de recherche a débuté. Pour optimiser notre temps de travail, nous nous sommes répartis les recherches. Ces dernières concernaient essentiellement les outils (Jenkins, JUnit, Mockito)  et les concepts théoriques (indicateurs, doublures ... que nous avons été amenés à utiliser. Chaque membre du groupe a ainsi acquis le rôle de référant dans son domaine de recherche.\\ 
+
+Une fois la phase de recherche terminée, la phase de mise en commun a alors pu débuter. Il était impérativement nécessaire que chaque membre du groupe est les mêmes connaissances concernant tous les concepts théoriques. De plus, cette phase a permis à chacun de donner son point de vue sur la manière à suivre.\\ 
+
+Enfin, une fois cette phase de mise en commun passée, la phase d'implémentation à proprement dit a débutée.\\ 
+
 
 \chapter{Implémentation}
 
-	\section{Package mmc}
+	Le projet se pésente sous la forme de quatre packages; un package pour chaque indicateur et un pour le gui. Concernant la répartition 
+	
+	\section{Package wmc}
 		\subsection{Diagramme UML}
 		\subsection{Extrait de code}
 		
@@ -108,5 +188,8 @@
 	\section{Package gui}
 		\subsection{Diagramme UML}
 		\subsection{Extrait de code}
+
+\chapter{Conclusion}
+		
 		
 \end{document} 
