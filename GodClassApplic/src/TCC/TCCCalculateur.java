@@ -17,22 +17,22 @@ import java.util.Set;
  *
  * @author bobmastrolilli
  */
-public class TCCCalculator 
+public class TCCCalculateur 
 {
-    protected TCCVisitor _visiteur;
-     private int _nbMethodes;
+    protected TCCVisiteur _visiteur;
+    private int _nbMethodes;
     private double _métrique;
     private Map<String, Set<NameExpr>> _VariableConnectee;
     private NameExpr _méthodeCourrante;
 
-    public TCCCalculator()
+    public TCCCalculateur()
     {
-        this._visiteur = new TCCVisitor();
+        this._visiteur = new TCCVisiteur();
         _nbMethodes = 0;
         _métrique = 0.0;
         _VariableConnectee = new HashMap<>();
     }
-    public double Calcul(CompilationUnit cu)
+    public double calcul(CompilationUnit cu)
     {
         try
         {
@@ -44,12 +44,12 @@ public class TCCCalculator
         System.out.println("(double)this.connectedVariables.size()" + (double)this._VariableConnectee.size());
         return  (double)this._VariableConnectee.size();
     }
-    public void incrementsMethodCount()
+    public void incrémenteNbMethode()
     {
         _nbMethodes++;
     }
     
-    public boolean addVariables(String var)
+    public boolean ajoutVariable(String var)
     {
         if(var !="" && var!=null)
         {
@@ -61,12 +61,12 @@ public class TCCCalculator
         
     }
     
-    public boolean containsVariable(String var)
+    public boolean contientVariable(String var)
     {
         return _VariableConnectee.containsKey(var);
     }
     
-    public boolean setCurrentMethod(NameExpr method)
+    public boolean setMethodeCourante(NameExpr method)
     {
         if(method != null && method.toString() != "")
         {
@@ -78,7 +78,7 @@ public class TCCCalculator
             return false;
     }
     
-    public boolean addMethodConnection(String var)
+    public boolean ajoutMethodeConnection(String var)
     {
         if (_méthodeCourrante != null && _VariableConnectee.containsKey(var))
         {
@@ -89,28 +89,28 @@ public class TCCCalculator
             return false;
     }
     
-    public void showCohesion()
+    public void afficheCohesion()
     {
         System.out.println(_VariableConnectee);
         System.out.println("Nombre de méthodes :  " + _nbMethodes);
     }
     
-    public double CalculTCC()
+    public double calculTCC()
     {
         // Nombre maximal de connexions
         int NP = (_nbMethodes * (_nbMethodes - 1)) / 2;
         
         // Nombre de connexions directes
-        int NDC = calculateDirectConnections();
+        int NDC = calculeConnectionDirectes();
         System.out.println("NDC " + NDC);
         
         _métrique = (double)NDC/NP;
         return _métrique;
     }
     
-    private int calculateDirectConnections()
+    private int calculeConnectionDirectes()
     {
-        PairList pairList = new PairList();
+        listPaire pairList = new listPaire();
         
         // Double boucle pour parcourir les méthodes connectées
         System.out.println("connectedVariables.entrySet() = "  + _VariableConnectee.entrySet());
@@ -130,7 +130,7 @@ public class TCCCalculator
                             if (entry1.getKey().equals(entry2.getKey()))
                             {
                                 System.out.println("connecté par la même variable");
-                                pairList.addPair(exp1, exp2);
+                                pairList.AjoutPair(exp1, exp2);
                             }
                             
                         }
@@ -139,27 +139,27 @@ public class TCCCalculator
             }
         }
         
-        pairList.print();
+        pairList.affiche();
         
-        return pairList.getSize();
+        return pairList.getTaille();
     }
 
-    public double getMetric()
+    public double getMetrique()
     {
         return _métrique;
     }
 
-    public int getMethodCount()
+    public int getNbMethode()
     {
         return _nbMethodes;
     }
 
-    public Map<String, Set<NameExpr>> getConnectedVariables()
+    public Map<String, Set<NameExpr>> getVariableConnectee()
     {
         return _VariableConnectee;
     }
 
-    public NameExpr getCurrentMethod()
+    public NameExpr getMethodeCourante()
     {
         return _méthodeCourrante;
     }

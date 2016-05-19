@@ -12,43 +12,41 @@ import java.util.ArrayList;
  *
  * @author bobmastrolilli
  */
-public class PairList
+public class listPaire
 {
-    private ArrayList<Pair<NameExpr, NameExpr>> pairs;
+    private ArrayList<Paire<NameExpr, NameExpr>> _pairs;
 
-    public PairList()
+    public listPaire()
     {
-        pairs = new ArrayList<>();
+        _pairs = new ArrayList<>();
     }
-    
-    public void addPair(NameExpr expr1, NameExpr expr2)
+    public void AjoutPair(NameExpr expr1, NameExpr expr2)
     {
-        Pair pair = Pair.createPair(expr1, expr2);
+        Paire pair = Paire.createPair(expr1, expr2);
         
         boolean found = false;
-        for (Pair item : pairs)
+        for (Paire item : _pairs)
         {
-            if (item.equalsPair(pair))
+            if (item.estEgalPair(pair))
             {
                 System.out.println("element trouvé donc pas d'ajout");
                 found = true;
             }
         }
-        
         if (!found)
-            pairs.add(pair);
+            _pairs.add(pair);
     }
     
-    public int getSize()
+    public int getTaille()
     {
-        return pairs.size();
+        return _pairs.size();
     }
     
-    public void print()
+    public void affiche()
     {
         
-        System.out.println("Liste " + pairs.size());
-        for (Pair pair : pairs)
+        System.out.println("Liste " + _pairs.size());
+        for (Paire pair : _pairs)
         {
             System.out.println(pair.getElement0() + " - " + pair.getElement1());
         }

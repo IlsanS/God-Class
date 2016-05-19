@@ -25,11 +25,11 @@ public class Main
 //        CompilationUnit cu=JavaParser.parse(new File("C:\\Users\\PC\\Documents\\GitHub\\God-Class\\GodClassApplic\\Test.java"));
         CompilationUnit cu = JavaParser.parse(new File("/Users/bobmastrolilli/NetBeansProjects/God-Class/GodClassApplic/test.java"));
            
-        TCCCalculator m= new TCCCalculator();
-        double b =m.Calcul(cu);
-        m.CalculTCC();
-        m.showCohesion();
-        System.out.println("métric = " + m.getMetric());
+        TCCCalculateur m= new TCCCalculateur();
+        double b =m.calcul(cu);
+        m.calculTCC();
+        m.afficheCohesion();
+        System.out.println("métric = " + m.getMetrique());
 
         
     }

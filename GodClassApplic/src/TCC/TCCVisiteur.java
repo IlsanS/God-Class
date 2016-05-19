@@ -21,7 +21,7 @@ import jdk.nashorn.internal.ir.visitor.NodeVisitor;
  *
  * @author bobmastrolilli
  */
-public class TCCVisitor extends VoidVisitorAdapter<TCCCalculator>
+public class TCCVisiteur extends VoidVisitorAdapter<TCCCalculateur>
 {
   
 
@@ -29,49 +29,49 @@ public class TCCVisitor extends VoidVisitorAdapter<TCCCalculator>
                          DECLARATION DES VARIABLE MEMBRE
 /****************************************************************************************************/ 
     
-    public void visit(FieldDeclaration n,  TCCCalculator arg)
+    public void visit(FieldDeclaration n,  TCCCalculateur arg)
     {
         
-        TCCCalculator calculator = (TCCCalculator)arg;
+        TCCCalculateur calculator = (TCCCalculateur)arg;
         List<VariableDeclarator> vars = n.getVariables();
         System.out.println("nombre vars = " + vars.size());
         vars.forEach(var->
         {
             System.out.println("Variable membre ajoutée " + var.toString() );
-            calculator.addVariables(var.toString());
+            calculator.ajoutVariable(var.toString());
         });
     }
 
  /****************************************************************************************************
  DECLARATION DES METHODES : recuperation des paramètres et accès aux assignations pour chaque méthode
 /****************************************************************************************************/ 
-    public void visit(MethodDeclaration n, TCCCalculator arg)
+    public void visit(MethodDeclaration n, TCCCalculateur arg)
     {
         System.out.println("################# " + n.getName() +" ###############################");
-        TCCCalculator calculator = (TCCCalculator)arg;
+        TCCCalculateur calculator = (TCCCalculateur)arg;
         // On stocke la méthode analysée en cours dans le Calculator
         NameExpr nE = new NameExpr(n.getName());
-        arg.setCurrentMethod(nE);
+        arg.setMethodeCourante(nE);
         // On visite toutes les expressions d'assignations de cette méthode
         super.visit(n, arg);
         System.out.println("################################################");
     }
     
-    public void visit(AssignExpr exp,  TCCCalculator arg)
+    public void visit(AssignExpr exp,  TCCCalculateur arg)
     {
-        TCCCalculator calculator = (TCCCalculator)arg;
+        TCCCalculateur calculator = (TCCCalculateur)arg;
         
         System.out.println("Assignation analysée " + exp.getTarget() + " - " + exp.getValue());
         
         // Si l'assignation(à gauche) analysée est contenue dans la map des variables connectée alors on lie cette méthode à la variable.
-        if (calculator.containsVariable(exp.getTarget().toString()))
+        if (calculator.contientVariable(exp.getTarget().toString()))
         {
-            calculator.addMethodConnection(exp.getTarget().toString());
+            calculator.ajoutMethodeConnection(exp.getTarget().toString());
         }
         // si l'assignation(à droite) ...
-        else if (calculator.containsVariable(exp.getValue().toString()) && exp.getValue() != null)
+        else if (calculator.contientVariable(exp.getValue().toString()) && exp.getValue() != null)
         {
-            calculator.addMethodConnection(exp.getValue().toString());
+            calculator.ajoutMethodeConnection(exp.getValue().toString());
         }
 
         
