@@ -1,5 +1,6 @@
 package TCC;
 
+import tcc.TCCCalculateur;
 import japa.parser.ast.expr.NameExpr;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
@@ -13,7 +14,7 @@ import static org.junit.Assert.*;
  */
 public class TCCTest
 {    
-    private static TCCCalculator instance;
+    private static TCCCalculateur instance;
     private static int expectedSize;
     
     public TCCTest()
@@ -24,7 +25,7 @@ public class TCCTest
     public static void setUpClass()
     {
         // Ajout des variables
-        instance = new TCCCalculator();
+        instance = new TCCCalculateur();
         expectedSize = 6;
         
         for (int i = 0; i < expectedSize; i++)

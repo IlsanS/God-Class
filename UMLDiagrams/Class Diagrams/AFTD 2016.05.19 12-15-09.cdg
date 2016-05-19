@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ClassDiagram name="AFTD">
+  <ClassDiagramComponents>
+    <Class name="ATFDVisiteur" package="AFTD" visibility="public" xPosition="20.0" yPosition="20.0">
+      <Fields/>
+      <Constructors/>
+      <Methods>
+        <Method name="visit" returnType="void" visibility="public">
+          <Argument type="FieldDeclaration" name="fieldDeclaration"/>
+          <Argument type="MeusureEncapsulationAFTD" name="m"/>
+        </Method>
+        <Method name="visit" returnType="void" visibility="public">
+          <Argument type="VariableDeclarationExpr" name="variableDeclarationExpr"/>
+          <Argument type="MeusureEncapsulationAFTD" name="m"/>
+        </Method>
+        <Method name="visit" returnType="void" visibility="public">
+          <Argument type="MethodDeclaration" name="methodDeclaration"/>
+          <Argument type="MeusureEncapsulationAFTD" name="m"/>
+        </Method>
+        <Method name="visit" returnType="void" visibility="public">
+          <Argument type="AssignExpr" name="n"/>
+          <Argument type="MeusureEncapsulationAFTD" name="calculator"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="MeusureEncapsulationAFTD" package="AFTD" visibility="public" xPosition="320.0" yPosition="20.0">
+      <Fields>
+        <Field name="visitor" type="ATFDVisiteur" visibility="private"/>
+        <Field name="classe_accedees" type="Set&lt;String&gt;" visibility="private"/>
+        <Field name="variable_membres" type="Map&lt;String, Type&gt;" visibility="private"/>
+        <Field name="localVariables" type="Map&lt;String, Type&gt;" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods>
+        <Method name="meusurer" returnType="double" visibility="public">
+          <Argument type="CompilationUnit" name="cu"/>
+        </Method>
+        <Method name="reinitialiser" returnType="void" visibility="public"/>
+        <Method name="recherche_type" returnType="Type" visibility="public">
+          <Argument type="String" name="variable"/>
+        </Method>
+        <Method name="addClasseAccedees" returnType="boolean" visibility="public">
+          <Argument type="String" name="className"/>
+        </Method>
+        <Method name="getClasseAccedees" returnType="Set&lt;String&gt;" visibility="public"/>
+        <Method name="addMemberVariable" returnType="void" visibility="public">
+          <Argument type="String" name="variable"/>
+          <Argument type="Type" name="type"/>
+        </Method>
+        <Method name="addMemberVariables" returnType="void" visibility="public">
+          <Argument type="List&lt;VariableDeclarator&gt;" name="variables"/>
+          <Argument type="Type" name="type"/>
+        </Method>
+        <Method name="ajoutVariableLocales" returnType="void" visibility="public">
+          <Argument type="String" name="variable"/>
+          <Argument type="Type" name="type"/>
+        </Method>
+        <Method name="ajoutVariablesLocales" returnType="void" visibility="public">
+          <Argument type="List&lt;Parameter&gt;" name="variables"/>
+        </Method>
+        <Method name="ajoutVariablesLocales" returnType="void" visibility="public">
+          <Argument type="List&lt;VariableDeclarator&gt;" name="variables"/>
+          <Argument type="Type" name="type"/>
+        </Method>
+        <Method name="calcul" returnType="double" visibility="public">
+          <Argument type="CompilationUnit" name="cu"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="NewMain" package="AFTD" visibility="public" xPosition="620.0" yPosition="20.0">
+      <Fields/>
+      <Constructors/>
+      <Methods>
+        <Method name="main" returnType="void" visibility="public" isStatic="true">
+          <Argument type="String[]" name="args"/>
+        </Method>
+      </Methods>
+    </Class>
+  </ClassDiagramComponents>
+  <ClassDiagramRelations>
+    <UseRelation source="AFTD.ATFDVisiteur" target="AFTD.MeusureEncapsulationAFTD" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="visitor" source="AFTD.MeusureEncapsulationAFTD" target="AFTD.ATFDVisiteur" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+  </ClassDiagramRelations>
+</ClassDiagram>

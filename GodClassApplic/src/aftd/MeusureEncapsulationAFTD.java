@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package AFTD;
+package aftd;
 
 import japa.parser.ast.CompilationUnit;
 import japa.parser.ast.body.Parameter;
@@ -28,15 +28,15 @@ import java.util.Set;
 
 public class MeusureEncapsulationAFTD 
 {
-    protected ATFDVisitor visitor;
+    private ATFDVisiteur visitor;
  
-    protected Set<String> classe_accedees;
-    protected Map<String, Type> variable_membres;
-    protected Map<String, Type> localVariables;
+    private Set<String> classe_accedees;
+    private Map<String, Type> variable_membres;
+    private Map<String, Type> localVariables;
 
     public MeusureEncapsulationAFTD()
     {
-        this.visitor = new ATFDVisitor();
+        this.visitor = new ATFDVisiteur();
         this.classe_accedees = new HashSet<>();
         this.variable_membres = new HashMap<>();
         this.localVariables = new HashMap<>();
@@ -90,7 +90,7 @@ public class MeusureEncapsulationAFTD
        if(recherche_type(className)!=null)
             return this.classe_accedees.add(className);
        else
-            System.out.println("Acces à super");
+            System.out.println("Acces à super/this");
        return false;
     }
 
@@ -134,8 +134,4 @@ public class MeusureEncapsulationAFTD
             this.ajoutVariableLocales(variable.getId().toString(), type);
     }
 
-   
-
-  
-  
 }

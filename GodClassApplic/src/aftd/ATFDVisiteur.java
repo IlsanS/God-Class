@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package AFTD;
+package aftd;
 
 
 import japa.parser.ast.body.FieldDeclaration;
@@ -15,7 +15,7 @@ import japa.parser.ast.expr.VariableDeclarationExpr;
 import japa.parser.ast.visitor.VoidVisitorAdapter;
 import java.util.List;
 
-public class ATFDVisitor extends VoidVisitorAdapter<MeusureEncapsulationAFTD>
+public class ATFDVisiteur extends VoidVisitorAdapter<MeusureEncapsulationAFTD>
 {
 /****************************************************************************************************
                          DECLARATION DES VARIABLE MEMBRE
@@ -32,7 +32,7 @@ public class ATFDVisitor extends VoidVisitorAdapter<MeusureEncapsulationAFTD>
 
         m.addMemberVariables(variables, fieldDeclaration.getType());
 
-        super.visit(fieldDeclaration, m);
+        //super.visit(fieldDeclaration, m);
     }
   
     
@@ -52,7 +52,7 @@ public class ATFDVisitor extends VoidVisitorAdapter<MeusureEncapsulationAFTD>
         m.ajoutVariablesLocales(variableDeclarationExpr.getVars(),
                                      variableDeclarationExpr.getType());
 
-        super.visit(variableDeclarationExpr, m);
+       // super.visit(variableDeclarationExpr, m);
     }
     
     

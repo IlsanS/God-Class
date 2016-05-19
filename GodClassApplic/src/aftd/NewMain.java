@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package AFTD;
+package aftd;
 
 import japa.parser.ast.CompilationUnit;
 import japa.parser.JavaParser;
@@ -23,8 +23,9 @@ public class NewMain {
     public static void main(String[] args) throws ParseException, IOException {
     
         
-//        CompilationUnit cu=JavaParser.parse(new File("C:\\Users\\PC\\Documents\\GitHub\\God-Class\\GodClassApplic\\Test.java"));
-        CompilationUnit cu = JavaParser.parse(new File("C:\\Users\\Kaoutare\\Documents\\GitHub\\God-Class\\Ressources\\Dossier final\\Madani-sby\\GenieLogiciel-LaboFinal-master\\src\\main\\java\\Test.java"));
+
+        CompilationUnit cu=JavaParser.parse(new File("C:\\Users\\PC\\Documents\\GitHub\\God-Class\\GodClassApplic\\Test.java"));
+      //  CompilationUnit cu = JavaParser.parse(new File("C:\\Users\\Kaoutare\\Documents\\GitHub\\God-Class\\Ressources\\Dossier final\\Madani-sby\\GenieLogiciel-LaboFinal-master\\src\\main\\java\\Test.java"));
            
         MeusureEncapsulationAFTD m= new MeusureEncapsulationAFTD();
         double b = m.meusurer(cu);

@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package TCC;
+package tcc;
 
-import AFTD.MeusureEncapsulationAFTD;
+import aftd.MeusureEncapsulationAFTD;
 import japa.parser.JavaParser;
 import japa.parser.ParseException;
 import japa.parser.ast.CompilationUnit;
@@ -22,8 +22,8 @@ public class Main
     public static void main(String[] args) throws ParseException, IOException {
     
         
-//        CompilationUnit cu=JavaParser.parse(new File("C:\\Users\\PC\\Documents\\GitHub\\God-Class\\GodClassApplic\\Test.java"));
-        CompilationUnit cu = JavaParser.parse(new File("/Users/bobmastrolilli/NetBeansProjects/God-Class/GodClassApplic/test.java"));
+   CompilationUnit cu=JavaParser.parse(new File("C:\\Users\\PC\\Documents\\GitHub\\God-Class\\GodClassApplic\\Test.java"));
+  //      CompilationUnit cu = JavaParser.parse(new File("/Users/bobmastrolilli/NetBeansProjects/God-Class/GodClassApplic/test.java"));
            
         TCCCalculateur m= new TCCCalculateur();
         double b =m.calcul(cu);
