@@ -29,11 +29,11 @@ public class TCCTest
         expectedSize = 6;
         
         for (int i = 0; i < expectedSize; i++)
-            instance.incrementsMethodCount();
+            instance.incrémenteNbMethode();
         
         // Ajout de variables
-        instance.addVariables("var1");
-        instance.addVariables("var2");
+        instance.ajoutVariable("var1");
+        instance.ajoutVariable("var2");
     }
     
     @AfterClass
@@ -47,9 +47,9 @@ public class TCCTest
     @Test
     public void testIncrementsMethodCount()
     {
-        System.out.println("incrementsMethodCount");
+        System.out.println("incrémenteNbMethode");
 
-        assertEquals(expectedSize, instance.getMethodCount());
+        assertEquals(expectedSize, instance.getNbMethode());
     }
 
     /**
@@ -61,33 +61,33 @@ public class TCCTest
         System.out.println("addVariables");
         
         // Container null?
-        assertNotNull(instance.getConnectedVariables());
+        assertNotNull(instance.getVariableConnectee());
         
         // Var existe
         String var = "var1";
-        instance.addVariables(var);
-        assertTrue(instance.containsVariable(var));
+        instance.ajoutVariable(var);
+        assertTrue(instance.contientVariable(var));
     }
 
     /**
-     * Test of containsVariable method, of class ClassCohesionCalculator.
+     * Test of contientVariable method, of class ClassCohesionCalculator.
      */
     @Test
     public void testContainsVariable()
     {
-        System.out.println("containsVariable");
+        System.out.println("contientVariable");
         
         // Existe pas
         String var = "testnegatif";
         
         boolean expResult = false;
-        boolean result = instance.containsVariable(var);
+        boolean result = instance.contientVariable(var);
         assertEquals(expResult, result);
         
         // Existe
         var = "var1";
         expResult = true;
-        assertEquals(expResult, instance.containsVariable(var));
+        assertEquals(expResult, instance.contientVariable(var));
     }
 
     /**
@@ -99,10 +99,10 @@ public class TCCTest
         System.out.println("setCurrentMethod");
         
         NameExpr method = new NameExpr("method1");
-        instance.setCurrentMethod(method);
-        assertEquals(method, instance.getCurrentMethod());
+        instance.setMethodeCourante(method);
+        assertEquals(method, instance.getMethodeCourante());
         expectedSize++;
-        assertEquals(expectedSize, instance.getMethodCount());
+        assertEquals(expectedSize, instance.getNbMethode());
     }
 
     /**
@@ -114,17 +114,17 @@ public class TCCTest
         System.out.println("addMethodConnection");
         
         NameExpr method = new NameExpr("method1");
-        instance.setCurrentMethod(method);    
+        instance.setMethodeCourante(method);    
         expectedSize++;
         
         String var = "var1";
-        instance.addMethodConnection(var);
-        assertNotNull(instance.getCurrentMethod());
-        assertTrue(instance.getConnectedVariables().containsKey(var));
-        assertNotNull(instance.getConnectedVariables().get(var));
+        instance.ajoutMethodeConnection(var);
+        assertNotNull(instance.getMethodeCourante());
+        assertTrue(instance.getVariableConnectee().containsKey(var));
+        assertNotNull(instance.getVariableConnectee().get(var));
         
         var = "tstss";
-        assertFalse(instance.getConnectedVariables().containsKey(var));
+        assertFalse(instance.getVariableConnectee().containsKey(var));
     }
 
     /**
@@ -134,9 +134,9 @@ public class TCCTest
     public void testPrintVariables()
     {
         System.out.println("printVariables");
-        assertNotNull(instance.getConnectedVariables());
-        assertNotNull(instance.getMethodCount());
-        assertEquals(expectedSize, instance.getMethodCount());
+        assertNotNull(instance.getVariableConnectee());
+        assertNotNull(instance.getNbMethode());
+        assertEquals(expectedSize, instance.getNbMethode());
     }
 
     /**
@@ -146,10 +146,10 @@ public class TCCTest
     public void testCalculateTCC()
     {
         System.out.println("calculateTCC");
-        assertTrue(instance.getMethodCount() != 0);
-        instance.CalculTCC();  
+        assertTrue(instance.getNbMethode() != 0);
+        instance.calculTCC();  
         
         // Vérification de la valeur
-        assertTrue(instance.getMetric() <= 1.0 && instance.getMetric() >= 0.0);
+        assertTrue(instance.getMetrique() <= 1.0 && instance.getMetrique() >= 0.0);
     }    
 }

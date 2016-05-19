@@ -22,7 +22,7 @@ public class TCCCalculateur
     protected TCCVisiteur _visiteur;
     private int _nbMethodes;
     private double _métrique;
-    private Map<String, Set<NameExpr>> _VariableConnectee;
+    private Map<String, Set<NameExpr>> _variableConnectee;
     private NameExpr _méthodeCourrante;
 
     public TCCCalculateur()
@@ -30,7 +30,7 @@ public class TCCCalculateur
         this._visiteur = new TCCVisiteur();
         _nbMethodes = 0;
         _métrique = 0.0;
-        _VariableConnectee = new HashMap<>();
+        _variableConnectee = new HashMap<>();
     }
     public double calcul(CompilationUnit cu)
     {
@@ -41,8 +41,8 @@ public class TCCCalculateur
         }
         catch(NullPointerException ex){ex.printStackTrace();return 0;}
         
-        System.out.println("(double)this.connectedVariables.size()" + (double)this._VariableConnectee.size());
-        return  (double)this._VariableConnectee.size();
+        System.out.println("(double)this.connectedVariables.size()" + (double)this._variableConnectee.size());
+        return  (double)this._variableConnectee.size();
     }
     public void incrémenteNbMethode()
     {
@@ -53,7 +53,7 @@ public class TCCCalculateur
     {
         if(var !="" && var!=null)
         {
-        _VariableConnectee.put(var, new HashSet<>());
+        _variableConnectee.put(var, new HashSet<>());
         return true;
         }
         else
@@ -63,7 +63,7 @@ public class TCCCalculateur
     
     public boolean contientVariable(String var)
     {
-        return _VariableConnectee.containsKey(var);
+        return _variableConnectee.containsKey(var);
     }
     
     public boolean setMethodeCourante(NameExpr method)
@@ -80,9 +80,9 @@ public class TCCCalculateur
     
     public boolean ajoutMethodeConnection(String var)
     {
-        if (_méthodeCourrante != null && _VariableConnectee.containsKey(var))
+        if (_méthodeCourrante != null && _variableConnectee.containsKey(var))
         {
-            _VariableConnectee.get(var).add(_méthodeCourrante);
+            _variableConnectee.get(var).add(_méthodeCourrante);
             return true;
         }
         else
@@ -91,7 +91,7 @@ public class TCCCalculateur
     
     public void afficheCohesion()
     {
-        System.out.println(_VariableConnectee);
+        System.out.println(_variableConnectee);
         System.out.println("Nombre de méthodes :  " + _nbMethodes);
     }
     
@@ -113,13 +113,13 @@ public class TCCCalculateur
         listPaire pairList = new listPaire();
         
         // Double boucle pour parcourir les méthodes connectées
-        System.out.println("connectedVariables.entrySet() = "  + _VariableConnectee.entrySet());
-        for(Map.Entry<String, Set<NameExpr>> entry1 : _VariableConnectee.entrySet())
+        System.out.println("connectedVariables.entrySet() = "  + _variableConnectee.entrySet());
+        for(Map.Entry<String, Set<NameExpr>> entry1 : _variableConnectee.entrySet())
         {
             for (NameExpr exp1 : entry1.getValue())
             {
                 System.out.println("exp1 : " + exp1);
-                for (Map.Entry<String, Set<NameExpr>> entry2 : _VariableConnectee.entrySet())
+                for (Map.Entry<String, Set<NameExpr>> entry2 : _variableConnectee.entrySet())
                 {
                     for (NameExpr exp2 : entry2.getValue())
                     {
@@ -156,7 +156,7 @@ public class TCCCalculateur
 
     public Map<String, Set<NameExpr>> getVariableConnectee()
     {
-        return _VariableConnectee;
+        return _variableConnectee;
     }
 
     public NameExpr getMethodeCourante()

@@ -160,7 +160,7 @@
 
 
 	\section{Outils utilisés}
-	Pour l'élaboration de ce travail, nous avons , d'une part, utilisé un serveur d'intégration continue Jenkins mais également les librairies JUnit et Mockito. Pour les exemples d'utilisation de ces outils Cfr. le chapitre \ref{impl} 
+	Pour l'élaboration de ce travail, nous avons , d'une part, utilisé un serveur d'intégration continue Jenkins mais également les librairies JUnit et Mockito. Pour les exemples d'utilisation de ces outils Cfr. le chapitre \ref{impl}. 
 
 \chapter{Méthodologie de travail}
 Avant de débuter le projet et la partie implémentation, une phase de recherche a débuté. Pour optimiser notre temps de travail, nous nous sommes répartis les recherches. Ces dernières concernaient essentiellement les outils (Jenkins, JUnit, Mockito)  et les concepts théoriques (indicateurs, doublures ...) que nous avons été amenés à utiliser. Chaque membre du groupe a ainsi acquis le rôle de référant dans son domaine de recherche.\\ 
@@ -202,18 +202,40 @@ Enfin, une fois cette phase de mise en commun passée, la phase d'implémentatio
 	\newpage
 	\section{Package aftd}
 		Concernant ce package les tests effectués vont par paires. En effet, pour chaque méthode de la classe \textit{MeusureEncapsulationAFTD} testée il y a à chaque fois un test qui donne une valeur correcte et un autre qui donne une erreur.
-		
-		\newpage 
+	
 		\subsection{Extrait de code}
+		\begin{figure}[h]
+			\centering
+			\boxed{\includegraphics[scale=0.8]{images/aftd2.PNG}}
+			\caption{Test de la méthode \textit{meusurer()}}
+			\label{aftd2}
+		\end{figure}
 		\begin{figure}[h]
 			\centering
 			\boxed{\includegraphics[scale=0.9]{images/aftd.PNG}}
 			\caption{Paire de test de la méthode \textit{meusurer()}}
 			\label{aftd}
 		\end{figure}
-			
-	%\section{Package tcc}
-		%\subsection{Extrait de code}
+	
+	\newpage		
+	\section{Package tcc}
+		Concernant ce package les tests effectués se rapportent aux méthodes de la classe \textit{TCCCalculateur}. Plusieurs cas de figure sont envisagés au sein des tests pour une même méthode. 
+		
+		\newpage
+		\subsection{Extrait de code}
+		\begin{figure}[h]
+			\centering
+			\boxed{\includegraphics[scale=1]{images/tcc.PNG}}
+			\caption{Test de la méthode \textit{contientVariable()}}
+			\label{tcc}
+		\end{figure}
+		
+		\begin{figure}[h]
+			\centering
+			\boxed{\includegraphics[scale=1]{images/tcc2.PNG}}
+			\caption{Test de la méthode \textit{ajoutVariable()}}
+			\label{tcc2}
+		\end{figure}
 			
 	\newpage	
 	\section{Package gui}
